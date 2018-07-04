@@ -23,6 +23,10 @@ module.exports = function(options = {}) {
             val = p1;
           }
 
+          if (typeof val === 'function') {
+            return val + '';
+          }
+
           return JSON.stringify(val);
         }
 
