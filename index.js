@@ -23,7 +23,11 @@ module.exports = function(options = {}) {
             val = p1;
           }
 
-          return '"' + val + '"';
+          if (typeof val === 'function') {
+            return val + '';
+          }
+
+          return JSON.stringify(val);
         }
 
         return scan(dict);
