@@ -15,12 +15,13 @@ module.exports = function(options = {}) {
             val = obj[p1];
           } else if (isObject(obj) && !obj.hasOwnProperty(p1)) {
             for (k in obj) {
-              if (obj.hasOwnProperty(k)) {
+              if (obj.hasOwnProperty(k) && isObject(obj[k])) {
                 scan(obj[k]);
               }
             }
           } else {
             val = p1;
+            console.log('Missing translation for:', p1)
           }
 
           if (typeof val === 'function') {
