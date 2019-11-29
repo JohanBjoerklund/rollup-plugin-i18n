@@ -11,7 +11,7 @@ In your source code, for example if you have a key called 'msg_hello', to transl
 import i18n from 'rollup-plugin-i18n';
 
 export default {
-  entry: 'index.js',
+  input: 'index.js',
   plugins: [
     i18n({
       language: {
