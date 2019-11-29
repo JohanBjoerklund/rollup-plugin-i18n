@@ -1,5 +1,7 @@
 export default {
-    entry: 'index.js',
-    format: 'es',
-    dest: 'dist/index.js',
+    input: 'index.js',
+    output: {
+      file: 'dist/index.js',
+      format: 'esm'
+    }
 };

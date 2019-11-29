@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-i18n",
-  "version": "0.3.1",
+  "version": 1.0.0",
   "description": "Embed localization in your bundle",
   "main": "index.js",
   "dependencies": {
@@ -9,7 +9,7 @@
   "devDependencies": {
     "ava": "^0.18.2",
     "babel-preset-stage-2": "^6.22.0",
-    "rollup": "^0.41.6"
+    "rollup": "^1.0.0"
   },
   "scripts": {
     "prebuild": "rm -rf dist/*",
