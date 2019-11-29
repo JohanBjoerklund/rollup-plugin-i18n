@@ -1,11 +1,21 @@
+const re = /__\(\s*(\\?)(['"`])(.+?)\\?\2\s*\)/g;
+
+const isObject = function(value) {
+  return Object.prototype.toString.call(value) === '[object Object]';
+}
+const isEscaped = x => x === '\\'
+
+const wrapEscape = x => `\\'${x}\\'`
+
+const escape = x => x
+  .replace(/'/g, '\u2019')
+  .replace(/"/g,  '\u201D')
+
 module.exports = function(options = {}) {
     const dict = options.language || {};
-    const re = /__\(\s*(['"`])(.+?)\1\s*\)/g;
-    const isObject = function(value) {
-      return Object.prototype.toString.call(value) === '[object Object]';
-    }
+    const shouldEscape = Boolean(options.escape)
 
-    function replacer(match, p0, p1) {
+    function replacer(match, p0, p00, p1) {
         let val;
 
         function scan(obj) {
@@ -28,6 +38,12 @@ module.exports = function(options = {}) {
             return val + '';
           }
 
+          if (shouldEscape && isEscaped(p0)) {
+            return typeof val === 'undefined'
+              ? wrapEscape(escape(''))
+              : wrapEscape(escape(val))
+          }
+
           return JSON.stringify(val);
         }
 
@@ -36,8 +52,8 @@ module.exports = function(options = {}) {
 
     return {
         name: 'i18n',
-        transform: function (source, id) {
-          return source.replace(re, replacer.bind(this));
-        },
+        renderChunk: function(code) {
+          return code.replace(re, replacer.bind(this))
+        }
     };
 }
